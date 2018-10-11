@@ -1240,21 +1240,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
     return 0;
 
   case embargo:
-    //+2 Coins
-    state->coins = state->coins + 2;
-
-    //see if selected pile is in play
-    if (state->supplyCount[choice1] == -1)
-    {
-      return -1;
-    }
-
-    //add embargo token to selected supply pile
-    state->embargoTokens[choice1]++;
-
-    //trash card
-    discardCard(handPos, currentPlayer, state, 1);
-    return 0;
+ 
 
   case outpost:
     //set outpost flag
@@ -1490,6 +1476,26 @@ int playSmithy(struct gameState *state, int handPos ) {
 int playGradens() {
   return -1;
 }
+
+int playEmbargo(struct gameState *state) {
+     //+2 Coins
+    state->coins = state->coins + 2;
+
+    //see if selected pile is in play
+    if (state->supplyCount[choice1] == -1)
+    {
+      return -1;
+    }
+
+    //add embargo token to selected supply pile
+    state->embargoTokens[choice1]++;
+
+    //trash card
+    discardCard(handPos, currentPlayer, state, 1);
+    return 0;
+}
+
+
 
 
 
