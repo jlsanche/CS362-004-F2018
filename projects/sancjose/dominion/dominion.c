@@ -763,8 +763,8 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
   switch (card)
   {
   case adventurer:
-   
-    return PlayAdventurer(state);
+
+    return playAdventurer(state);
 
   case council_room:
     //+4 Cards
@@ -918,7 +918,6 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
   case smithy:
 
     return playSmithy(state, handPos);
-    
 
   case village:
     //+1 Card
@@ -1240,15 +1239,11 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
     return 0;
 
   case embargo:
- 
+
+    return playEmbargo(state);
 
   case outpost:
-    //set outpost flag
-    state->outpostPlayed++;
-
-    //discard card
-    discardCard(handPos, currentPlayer, state, 0);
-    return 0;
+    return playOutpost();
 
   case salvager:
     //+1 buy
@@ -1418,88 +1413,96 @@ int updateCoins(int player, struct gameState *state, int bonus)
   return 0;
 }
 
-
 //adventurer refactor
-int playAdventurer(struct gameState *state) {
-  
+int playAdventurer(struct gameState *state)
+{
+
   int z = 0;
   int currentPlayer = whoseTurn(state);
   int temphand[MAX_HAND];
   int cardDrawn;
   int drawntreasure = 0;
 
-
-   while (drawntreasure < 2)
-    {
-      if (state->deckCount[currentPlayer] < 1)
-      { //if the deck is empty we need to shuffle discard and add to deck
-        shuffle(currentPlayer, state);
-      }
-      drawCard(currentPlayer, state);
-      cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer] - 1]; //top card of hand is most recently drawn card.
-      if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold)
-        drawntreasure++;
-      else
-      {
-        temphand[z] = cardDrawn;
-        state->handCount[currentPlayer]--; //this should just remove the top card (the most recently drawn one).
-        z++;
-      }
+  while (drawntreasure < 2)
+  {
+    if (state->deckCount[currentPlayer] < 1)
+    { //if the deck is empty we need to shuffle discard and add to deck
+      shuffle(currentPlayer, state);
     }
-    while (z - 1 >= 0)
+    drawCard(currentPlayer, state);
+    cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer] - 1]; //top card of hand is most recently drawn card.
+    if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold)
+      drawntreasure++;
+    else
     {
-      state->discard[currentPlayer][state->discardCount[currentPlayer]++] = temphand[z - 1]; // discard all cards in play that have been drawn
-      z = z - 1;
+      temphand[z] = cardDrawn;
+      state->handCount[currentPlayer]--; //this should just remove the top card (the most recently drawn one).
+      z++;
     }
-    return 0;
+  }
+  while (z - 1 >= 0)
+  {
+    state->discard[currentPlayer][state->discardCount[currentPlayer]++] = temphand[z - 1]; // discard all cards in play that have been drawn
+    z = z - 1;
+  }
+  return 0;
 }
 
 // smithy refactor
 
-int playSmithy(struct gameState *state, int handPos ) {
+int playSmithy(struct gameState *state, int handPos)
+{
   //+3 Cards
   int i = 0;
   int currentPlayer = whoseTurn(state);
 
+  for (i = 0; i < 3; i++)
+  {
+    drawCard(currentPlayer, state);
+  }
 
-    for (i = 0; i < 3; i++)
-    {
-      drawCard(currentPlayer, state);
-    }
-
-    //discard card from hand
-    discardCard(handPos, currentPlayer, state, 0);
-    return 0;
+  //discard card from hand
+  discardCard(handPos, currentPlayer, state, 0);
+  return 0;
 }
 
 //gardens refactor
-int playGradens() {
+int playGradens()
+{
   return -1;
 }
 
-int playEmbargo(struct gameState *state) {
-     //+2 Coins
-    state->coins = state->coins + 2;
+//refactored embargo
+int playEmbargo(struct gameState *state, int choice1, int handPos)
+{
+  //+2 Coins
+  int currentPlayer = whoseTurn(state);
+  state->coins = state->coins + 2;
 
-    //see if selected pile is in play
-    if (state->supplyCount[choice1] == -1)
-    {
-      return -1;
-    }
+  //see if selected pile is in play
+  if (state->supplyCount[choice1] == -1)
+  {
+    return -1;
+  }
 
-    //add embargo token to selected supply pile
-    state->embargoTokens[choice1]++;
+  //add embargo token to selected supply pile
+  state->embargoTokens[choice1]++;
 
-    //trash card
-    discardCard(handPos, currentPlayer, state, 1);
-    return 0;
+  //trash card
+  discardCard(handPos, currentPlayer, state, 1);
+  return 0;
 }
 
+//refactored outpost
+int playOutpost(struct gameState *state, int handPos)
+{
+  int currentPlayer = whoseTurn(state);
+  //set outpost flag
+  state->outpostPlayed++;
 
-
-
-
-
-
+  //discard card
+  discardCard(handPos, currentPlayer, state, 0);
+  return 0;
+}
 
 //end of dominion.c
