@@ -853,7 +853,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
     return 0;
 
   case gardens:
-    return playGradens();
+    return playGardens();
 
   case mine:
     j = state->hand[currentPlayer][choice1]; //store card we will trash
@@ -1240,10 +1240,10 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 
   case embargo:
 
-    return playEmbargo(state);
+    return playEmbargo(state, choice1, handPos);
 
   case outpost:
-    return playOutpost();
+    return playOutpost(state, handPos);
 
   case salvager:
     //+1 buy
@@ -1431,7 +1431,8 @@ int playAdventurer(struct gameState *state)
     }
     drawCard(currentPlayer, state);
     cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer] - 1]; //top card of hand is most recently drawn card.
-    if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold)
+      //bug 1: cardDrawn == copper || 
+    if ( cardDrawn == silver || cardDrawn == gold)
       drawntreasure++;
     else
     {
@@ -1467,7 +1468,7 @@ int playSmithy(struct gameState *state, int handPos)
 }
 
 //gardens refactor
-int playGradens()
+int playGardens()
 {
   return -1;
 }
