@@ -1492,7 +1492,8 @@ int playEmbargo(struct gameState *state, int choice1, int handPos)
   //add embargo token to selected supply pile
   state->embargoTokens[choice1]++;
 
-  //trash card
+  //trash card   
+  
   discardCard(handPos, currentPlayer, state, 1);
   return 0;
 }
@@ -1505,7 +1506,8 @@ int playOutpost(struct gameState *state, int handPos)
   state->outpostPlayed++;
 
   //discard card
-  discardCard(handPos, currentPlayer, state, 0);
+  //bug trash card not set to 1 
+  discardCard(handPos, currentPlayer, state, 1);
   return 0;
 }
 
