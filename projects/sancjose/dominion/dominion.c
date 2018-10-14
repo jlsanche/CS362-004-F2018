@@ -1427,6 +1427,7 @@ int playAdventurer(struct gameState *state)
   {
     if (state->deckCount[currentPlayer] < 1)
     { //if the deck is empty we need to shuffle discard and add to deck
+        
       shuffle(currentPlayer, state);
     }
     drawCard(currentPlayer, state);
@@ -1457,7 +1458,8 @@ int playSmithy(struct gameState *state, int handPos)
   int i = 0;
   int currentPlayer = whoseTurn(state);
 
-  for (i = 0; i < 3; i++)
+  //BUG 3: DRAW 2 CARDS ONLY
+  for (i = 0; i < 2; i++)
   {
     drawCard(currentPlayer, state);
   }
@@ -1477,8 +1479,9 @@ int playGardens()
 int playEmbargo(struct gameState *state, int choice1, int handPos)
 {
   //+2 Coins
+  //bug 2: no coins added
   int currentPlayer = whoseTurn(state);
-  state->coins = state->coins + 2;
+  state->coins = state->coins;
 
   //see if selected pile is in play
   if (state->supplyCount[choice1] == -1)
