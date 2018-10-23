@@ -7,7 +7,7 @@
 #include <assert.h>
 #include <string.h>
 
-// test to check if player is finished with their turn
+// test to check if game is over
 
 int main(int argc, char const *argv[])
 {
@@ -18,7 +18,7 @@ int main(int argc, char const *argv[])
     int k[10] = {smithy, adventurer, embargo, steward, sea_hag, minion, outpost, salvager, mine, gardens};
     x = initializeGame(numPlayer, k, 1000, &G);
 
-    printf("Unit test 1: Check if player is finished with their turn \n ");
+    printf("Unit test 1: Check if game is over \n ");
 
     y = isGameOver(&G);
     assert(y == 0);
