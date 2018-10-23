@@ -7,26 +7,25 @@
 #include <assert.h>
 #include <string.h>
 
-
-// test initializeGame deck is  == 10
+// test to check if player is finished with their turn
 
 int main(int argc, char const *argv[])
 {
 
     struct gameState G;
-    
+    int numPlayer = 2;
+    int x, y;
+    int k[10] = {smithy, adventurer, embargo, steward, sea_hag, minion, outpost, salvager, mine, gardens};
+    x = initializeGame(numPlayer, k, 1000, &G);
 
-    int kCards[10] = {smithy, adventurer, gardens, embargo, outpost, sea_hag, tribute, mine, baron, steward};
-    int x = initializeGame(2, kCards, 1000, &G);
+    printf("Unit test 1: Check if player is finished with their turn \n ");
 
-    printf('Unit test 1: Making sure there are 10 cards to start \n');
-
-    int y = isGameOver(&G);
+    y = isGameOver(&G);
     assert(y == 0);
-    
-    printf('Test passed!\n');
 
-    assert(x == 0);
-    
+    printf("\nTest Successfuly Completed\n");
+
+    assert(y == 0);
+
     return 0;
 }
