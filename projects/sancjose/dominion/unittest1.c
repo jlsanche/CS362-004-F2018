@@ -12,20 +12,5 @@
 int main(int argc, char const *argv[])
 {
 
-    struct gameState G;
-    int numPlayer = 2;
-    int x, y;
-    int k[10] = {smithy, adventurer, embargo, steward, sea_hag, minion, outpost, salvager, mine, gardens};
-    x = initializeGame(numPlayer, k, 1000, &G);
-
-    printf("Unit test 1: Check if game is over \n ");
-
-    y = isGameOver(&G);
-    assert(y == 0);
-
-    printf("\nTest Successfuly Completed\n");
-
-    assert(y == 0);
-
     return 0;
 }
