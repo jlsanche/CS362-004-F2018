@@ -4,6 +4,8 @@
 #include <time.h>
 
 //cited: https://en.wikibooks.org/wiki/A_Little_C_Primer/C_Dynamic_Memory_Allocation_%26_Deallocation
+//compile using make 
+//clean up using make clean
 char inputChar()
 {
 
