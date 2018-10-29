@@ -1,6 +1,4 @@
 
-
-
 #include "dominion.h"
 #include "dominion_helpers.h"
 #include <string.h>
@@ -8,6 +6,8 @@
 #include <assert.h>
 #include "rngs.h"
 #include <stdlib.h>
+
+//source cited: using template from cardtest4.c on canvas
 
 #define TESTCARD "adventurer"
 
@@ -38,7 +38,7 @@ int main() {
 	// copy the game state to a test case
 	memcpy(&testG, &G, sizeof(struct gameState));
 	
-	cardEffect(steward, 0,0,0, &testG, handpos, &bonus);
+	cardEffect(adventurer, 0,0,0, &testG, handpos, &bonus);
 
 	newCards = 2;
 	xtraCoins = 0;
@@ -48,9 +48,6 @@ int main() {
 	assert(testG.handCount[thisPlayer] == G.handCount[thisPlayer] + newCards - discarded);
 	assert(testG.deckCount[thisPlayer] == G.deckCount[thisPlayer] - newCards + shuffledCards);
 	assert(testG.coins == G.coins + xtraCoins);
-
-	
-
 
 	printf("\n >>>>> SUCCESS: Testing complete %s card <<<<<\n\n", TESTCARD);
 

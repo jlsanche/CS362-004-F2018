@@ -1481,7 +1481,7 @@ int playEmbargo(struct gameState *state, int choice1, int handPos)
   //+2 Coins
   //bug 2: no coins added
   int currentPlayer = whoseTurn(state);
-  state->coins = state->coins + 2 ;
+  state->coins = state->coins;
 
   //see if selected pile is in play
   if (state->supplyCount[choice1] == -1)
