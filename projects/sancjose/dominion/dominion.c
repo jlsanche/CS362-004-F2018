@@ -1427,13 +1427,13 @@ int playAdventurer(struct gameState *state)
   {
     if (state->deckCount[currentPlayer] < 1)
     { //if the deck is empty we need to shuffle discard and add to deck
-        
+
       shuffle(currentPlayer, state);
     }
     drawCard(currentPlayer, state);
     cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer] - 1]; //top card of hand is most recently drawn card.
-      //bug 1: cardDrawn == copper || 
-    if ( cardDrawn == silver || cardDrawn == gold)
+        //bug 1: cardDrawn == copper ||
+    if (cardDrawn == silver || cardDrawn == gold)
       drawntreasure++;
     else
     {
@@ -1492,8 +1492,8 @@ int playEmbargo(struct gameState *state, int choice1, int handPos)
   //add embargo token to selected supply pile
   state->embargoTokens[choice1]++;
 
-  //trash card   
-  
+  //trash card
+
   discardCard(handPos, currentPlayer, state, 1);
   return 0;
 }
@@ -1506,7 +1506,7 @@ int playOutpost(struct gameState *state, int handPos)
   state->outpostPlayed++;
 
   //discard card
-  //bug trash card not set to 1 
+  //bug trash card not set to 1
   discardCard(handPos, currentPlayer, state, 1);
   return 0;
 }
