@@ -1,0 +1,115 @@
+        -:    0:Source:randomtestcard1.c
+        -:    0:Graph:randomtestcard1.gcno
+        -:    0:Data:randomtestcard1.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include "dominion.h"
+        -:    2:#include "dominion_helpers.h"
+        -:    3:#include "rngs.h"
+        -:    4:#include <stdio.h>
+        -:    5:#include <math.h>
+        -:    6:#include <stdlib.h>
+        -:    7:#include <assert.h>
+        -:    8:#include <time.h>
+        -:    9:
+        -:   10:#define TESTCARD "smithy"
+        -:   11:
+function main called 1 returned 0% blocks executed 65%
+        -:   12:int main(int argc, char const *argv[])
+        -:   13:{
+        1:   14:    srand(time(NULL));
+        -:   15:
+        -:   16:
+        1:   17:    int newCards = 0;
+        1:   18:    int discarded = 1;
+        1:   19:    int xtraCoins = 0;
+        1:   20:    int shuffledCards = 0;
+        -:   21:
+        -:   22:    int j, m;
+        1:   23:    int handpos = 0, bonus = 0;
+        1:   24:    int seed = (rand() % 1000) + 1000;
+        1:   25:    int numPlayers = 2;
+        1:   26:    int thisPlayer = 0;
+        -:   27:    int n, i, p;
+        -:   28:
+        -:   29:    struct gameState G, testG;
+        -:   30:
+        1:   31:    int k[10] = {adventurer, embargo, village, minion, mine, cutpurse,
+        -:   32:                 sea_hag, outpost, smithy, gardens};
+        -:   33:
+        1:   34:    SelectStream(2);
+        1:   35:    PutSeed(3);
+        -:   36:
+        1:   37:    printf("random test for card 1: %s\n", TESTCARD);
+        -:   38:
+     2001:   39:    for (n = 0; n < 2000; n++)
+        1:   39-block  0
+     2001:   39-block  1
+branch  0 taken 99%
+branch  1 taken 1%
+     2000:   39-block  2
+        -:   40:    {
+ 52602000:   41:        for (i = 0; i < sizeof(struct gameState); i++)
+     2000:   41-block  0
+ 52602000:   41-block  1
+branch  0 taken 99%
+branch  1 taken 1%
+ 52600000:   41-block  2
+        -:   42:        {
+ 52600000:   43:            ((char *)&G)[i] = floor(Random() * 256);
+ 52600000:   44:        }
+ 52600000:   44-block  0
+        -:   45:
+     2000:   46:        thisPlayer = floor(Random() * 2);
+     2000:   47:        G.deckCount[thisPlayer] = floor(Random() * MAX_DECK);
+     2000:   48:        G.discardCount[thisPlayer] = floor(Random() * MAX_DECK);
+     2000:   49:        G.handCount[thisPlayer] = floor(Random() * MAX_HAND);
+     2000:   50:        G.coins = floor(Random() * 7);
+        -:   51:
+     2000:   52:        testG.deckCount[thisPlayer] = floor(Random() * MAX_DECK);
+     2000:   53:        testG.discardCount[thisPlayer] = floor(Random() * MAX_DECK);
+     2000:   54:        testG.handCount[thisPlayer] = floor(Random() * MAX_HAND);
+     2000:   55:        testG.coins = floor(Random() * 7);
+        -:   56:
+     2000:   57:        initializeGame(numPlayers, k, seed, &G);
+     2000:   58:        memcpy(&testG, &G, sizeof(struct gameState));
+        -:   59:
+     2000:   60:        cardEffect(smithy, 0, 0, 0, &testG, handpos, &bonus);
+        -:   61:
+     2000:   62:        newCards = 3;
+        -:   63:
+     2000:   64:        printf("hand count = %d, expected = %d\n", testG.handCount[thisPlayer], G.handCount[thisPlayer] + newCards - discarded);
+     2000:   65:        printf("deck count = %d, expected = %d\n", testG.deckCount[thisPlayer], G.deckCount[thisPlayer] - newCards + shuffledCards);
+     2000:   66:        printf("coins = %d, expected = %d\n", testG.coins, G.coins + xtraCoins);
+     2000:   67:        assert(testG.handCount[thisPlayer] == G.handCount[thisPlayer] + newCards - discarded);
+     2000:   67-block  0
+branch  0 taken 0%
+branch  1 taken 100%
+    $$$$$:   67-block  1
+    $$$$$:   67-block  2
+     2000:   67-block  3
+     2000:   68:        assert(testG.deckCount[thisPlayer] == G.deckCount[thisPlayer] - newCards + shuffledCards);
+     2000:   68-block  0
+branch  0 taken 0%
+branch  1 taken 100%
+    $$$$$:   68-block  1
+    $$$$$:   68-block  2
+     2000:   68-block  3
+     2000:   69:        assert(testG.coins == G.coins + xtraCoins);
+     2000:   69-block  0
+branch  0 taken 0%
+branch  1 taken 100%
+    $$$$$:   69-block  1
+    $$$$$:   69-block  2
+     2000:   69-block  3
+        -:   70:
+     2000:   71:        printf("\n >>>>> SUCCESS: Testing complete for %s card <<<<<\n\n", TESTCARD);
+     2000:   72:    }
+     2000:   72-block  0
+        -:   73:
+        1:   74:    exit(0);
+        1:   74-block  0
+        -:   75:
+        -:   76:    return 0;
+    #####:   77:}
+    $$$$$:   77-block  0
