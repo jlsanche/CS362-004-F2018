@@ -1432,7 +1432,7 @@ int playAdventurer(struct gameState *state)
     }
     drawCard(currentPlayer, state);
     cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer] - 1]; //top card of hand is most recently drawn card.
-        //bug 1: cardDrawn == copper ||
+                                                                                 //bug 1: cardDrawn == copper ||
     if (cardDrawn == silver || cardDrawn == gold)
       drawntreasure++;
     else
@@ -1459,7 +1459,7 @@ int playSmithy(struct gameState *state, int handPos)
   int currentPlayer = whoseTurn(state);
 
   //BUG 3: DRAW 2 CARDS ONLY
-  for (i = 0; i < 2; i++)
+  for (i = 0; i < 3; i++)
   {
     drawCard(currentPlayer, state);
   }
