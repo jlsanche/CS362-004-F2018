@@ -767,11 +767,11 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
     return 0;
 
   case council_room:
-     return council_room_function();
+    return council_room_function(state, handPos);
     return 0;
 
   case feast:
-     return feast_function();
+    return feast_function();
     return 0;
 
   case gardens:
@@ -816,7 +816,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
     return remodel_function();
     return 0;
   case smithy:
-     return smithy_function();
+    return smithy_function(state, handPos);
     return 0;
 
   case village:
@@ -1368,15 +1368,13 @@ int adventurer_function(struct gameState *state)
   return 0;
 }
 
-
 //smithy
 int smithy_function(struct gameState *state, int handPos)
 {
   int i = 0;
   int currentPlayer = whoseTurn(state);
-  
 
-      //+3 Cards
+  //+3 Cards
   for (i = 0; i < 3; i++)
   {
     //drawCard(currentPlayer, state); //**BUG: do not draw cards
@@ -1386,9 +1384,6 @@ int smithy_function(struct gameState *state, int handPos)
   //discardCard(handPos, currentPlayer, state, 0); //**BUG: change 0 to 1
   return 0;
 }
-
-
-
 
 //council room
 int council_room_function(struct gameState *state, int handPos)
@@ -1421,10 +1416,10 @@ int council_room_function(struct gameState *state, int handPos)
 }
 
 //feast
-int feast_function(struct gameState *state, int choice1 )
+int feast_function(struct gameState *state, int choice1)
 {
-  int i =0;
-  int x =0;
+  int i = 0;
+  int x = 0;
   int currentPlayer = whoseTurn(state);
   int temphand[MAX_HAND];
 
