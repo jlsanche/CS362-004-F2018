@@ -1,0 +1,80 @@
+        -:    0:Source:smithyUnitTest.c
+        -:    0:Graph:smithyUnitTest.gcno
+        -:    0:Data:-
+        -:    0:Runs:0
+        -:    0:Programs:0
+        -:    1:#include "dominion.h"
+        -:    2:#include "dominion_helpers.h"
+        -:    3:#include "rngs.h"
+        -:    4:#include <stdio.h>
+        -:    5:#include <math.h>
+        -:    6:#include <stdlib.h>
+        -:    7:#include <assert.h>
+        -:    8:#include <string.h>
+        -:    9:
+        -:   10:#define TESTCARD "smithy"
+        -:   11:
+        -:   12://source cited: using template from cardtest4.c on canvas
+        -:   13:
+function main called 0 returned 0% blocks executed 0%
+        -:   14:int main(int argc, char const *argv[])
+        -:   15:{
+        -:   16:
+    #####:   17:    int newCards = 0;
+    #####:   18:    int discarded = 1;
+    #####:   19:    int xtraCoins = 0;
+    #####:   20:    int shuffledCards = 0;
+        -:   21:
+        -:   22:    int i, j, m;
+    #####:   23:    int handpos = 0, bonus = 0;
+    #####:   24:    int seed = 1000;
+    #####:   25:    int numPlayers = 2;
+    #####:   26:    int thisPlayer = 0;
+        -:   27:	struct gameState G, testG;
+    #####:   28:	int k[10] = {adventurer, embargo, village, minion, mine, cutpurse,
+        -:   29:			sea_hag, outpost, smithy, gardens};
+        -:   30:
+        -:   31:	// initialize a game state and player cards
+    #####:   32:	initializeGame(numPlayers, k, seed, &G);
+        -:   33:
+    #####:   34:    printf("card test 1: %s\n", TESTCARD);
+        -:   35:
+        -:   36:	// copy the game state to a test case
+    #####:   37:	memcpy(&testG, &G, sizeof(struct gameState));
+    #####:   38:	cardEffect(smithy, 0, 0, 0, &testG, handpos, &bonus);
+        -:   39:
+    #####:   40:    newCards = 3;
+        -:   41:
+    #####:   42:    printf("hand count = %d, expected = %d\n", testG.handCount[thisPlayer], G.handCount[thisPlayer] + newCards - discarded);
+    #####:   43:	printf("deck count = %d, expected = %d\n", testG.deckCount[thisPlayer], G.deckCount[thisPlayer] - newCards + shuffledCards);
+    #####:   44:	printf("coins = %d, expected = %d\n", testG.coins, G.coins + xtraCoins);
+        -:   45:
+    #####:   46:	assert(testG.handCount[thisPlayer] == G.handCount[thisPlayer] + newCards - discarded);
+    $$$$$:   46-block  0
+branch  0 never executed
+branch  1 never executed
+    $$$$$:   46-block  1
+    $$$$$:   46-block  2
+    $$$$$:   46-block  3
+    #####:   47:	assert(testG.deckCount[thisPlayer] == G.deckCount[thisPlayer] - newCards + shuffledCards);
+    $$$$$:   47-block  0
+branch  0 never executed
+branch  1 never executed
+    $$$$$:   47-block  1
+    $$$$$:   47-block  2
+    $$$$$:   47-block  3
+    #####:   48:	assert(testG.coins == G.coins + xtraCoins);
+    $$$$$:   48-block  0
+branch  0 never executed
+branch  1 never executed
+    $$$$$:   48-block  1
+    $$$$$:   48-block  2
+    $$$$$:   48-block  3
+        -:   49:
+    #####:   50:    printf("\n >>>>> SUCCESS: Testing complete for %s card <<<<<\n\n", TESTCARD);
+        -:   51:
+    #####:   52:    return 0;
+    $$$$$:   52-block  0
+        -:   53:}
+        -:   54:
+        -:   55:
