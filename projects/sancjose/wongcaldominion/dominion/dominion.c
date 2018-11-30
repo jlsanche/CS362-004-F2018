@@ -763,7 +763,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
   switch (card)
   {
   case adventurer:
-    return adventurer_function();
+    return adventurer_function(state);
     return 0;
 
   case council_room:
@@ -771,7 +771,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
     return 0;
 
   case feast:
-    return feast_function();
+    return feast_function(state, choice1);
     return 0;
 
   case gardens:
@@ -813,7 +813,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
     return 0;
 
   case remodel:
-    return remodel_function();
+    return remodel_function(state, choice1, choice2, handPos);
     return 0;
   case smithy:
     return smithy_function(state, handPos);
